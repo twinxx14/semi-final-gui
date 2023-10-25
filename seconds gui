@@ -1,0 +1,88 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TimeConverter {
+
+    public static void main(String[] args) {
+        // Create a JFrame
+        JFrame frame = new JFrame("Time Converter");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 200);
+        frame.setLayout(null);
+
+        // Create seconds label and text field
+        JLabel secondsLabel = new JLabel("Enter Seconds:");
+        secondsLabel.setBounds(20, 20, 120, 25);
+        frame.add(secondsLabel);
+
+        JTextField secondsField = new JTextField();
+        secondsField.setBounds(150, 20, 120, 25);
+        frame.add(secondsField);
+
+        // Create calculate and exit buttons
+        JButton calculateButton = new JButton("Calculate");
+        calculateButton.setBounds(20, 60, 120, 25);
+        frame.add(calculateButton);
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(150, 60, 120, 25);
+        frame.add(exitButton);
+
+        // Create labels for displaying results
+        JLabel yearsLabel = new JLabel("Years:");
+        yearsLabel.setBounds(20, 100, 120, 25);
+        frame.add(yearsLabel);
+
+        JLabel weeksLabel = new JLabel("Weeks:");
+        weeksLabel.setBounds(20, 130, 120, 25);
+        frame.add(weeksLabel);
+
+        JLabel daysLabel = new JLabel("Days:");
+        daysLabel.setBounds(150, 100, 120, 25);
+        frame.add(daysLabel);
+
+        JLabel hoursLabel = new JLabel("Hours:");
+        hoursLabel.setBounds(150, 130, 120, 25);
+        frame.add(hoursLabel);
+
+        JLabel minutesLabel = new JLabel("Minutes:");
+        minutesLabel.setBounds(20, 160, 250, 25);
+        frame.add(minutesLabel);
+
+        // Action listener for calculate button
+        calculateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    long seconds = Long.parseLong(secondsField.getText());
+
+                    long years = seconds / (365 * 24 * 60 * 60);
+                    long weeks = (seconds % (365 * 24 * 60 * 60)) / (7 * 24 * 60 * 60);
+                    long days = (seconds % (7 * 24 * 60 * 60)) / (24 * 60 * 60);
+                    long hours = (seconds % (24 * 60 * 60)) / (60 * 60);
+                    long minutes = (seconds % (60 * 60)) / 60;
+
+                    yearsLabel.setText("Years: " + years);
+                    weeksLabel.setText("Weeks: " + weeks);
+                    daysLabel.setText("Days: " + days);
+                    hoursLabel.setText("Hours: " + hours);
+                    minutesLabel.setText("Minutes: " + minutes);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Invalid input. Please enter valid seconds.");
+                }
+            }
+        });
+
+        // Action listener for exit button
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        // Set the frame visibility to true
+        frame.setVisible(true);
+    }
+}
